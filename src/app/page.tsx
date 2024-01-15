@@ -1,5 +1,4 @@
-import Head from "next/head";
-import Map from "../components/Map/Map.component";
+import SideBar from "./components/SideBar";
 import dynamic from "next/dynamic";
 
 export default function IndexPage() {
@@ -13,6 +12,7 @@ export default function IndexPage() {
 	return (
 		<>
 			<h1>TwoSoil</h1>
+			<SideBar />
 			<MapWithNoSSR />
 		</>
 	);

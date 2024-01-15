@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import "../styles/globals.scss";
 
 export const metadata: Metadata = {
 	title: "TwoSoil",
@@ -15,7 +13,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="pt-br">
-			<body className={inter.className}>{children}</body>
+			<body>{children}</body>
 		</html>
 	);
 }
