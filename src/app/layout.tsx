@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import "../styles/globals.scss";
+import styles from "../styles/layouts/rootLayout.module.scss";
+import "../styles/global.scss";
+import SideBar from "../components/Sidebar/Sidebar.component";
 
 export const metadata: Metadata = {
 	title: "TwoSoil",
@@ -13,7 +15,10 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="pt-br">
-			<body>{children}</body>
+			<body className={styles.rootLayout}>
+				<SideBar />
+				{children}
+			</body>
 		</html>
 	);
 }

@@ -3,3 +3,11 @@ $background-color: #0b0f0a;
 $primary-color: #9ff676;
 $secondary-color: #2003ab;
 $accent-color: #14f077;
+
+:export {
+    textColor: $text-color;
+    backgroundColor: $background-color;
+    primaryColor: $primary-color;
+    secondaryColor: $secondary-color;
+    accentColor: $accent-color;
+}

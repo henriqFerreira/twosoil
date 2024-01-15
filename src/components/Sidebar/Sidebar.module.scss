@@ -1,9 +1,8 @@
 .container {
     width: 220px;
     height: 95vh;
-    background-color: #0B0F0A;
+    background-color: #0b0f0a;
     border-radius: 10px;
-    position: absolute;
     top: 5px;
     left: 10px;
     padding: 10px 0px;
@@ -17,7 +16,7 @@
     padding: 15px 0 15px 15px;
     margin-top: 5px;
     gap: 10px;
-    color: #EDFDE7;
+    color: #edfde7;
     text-decoration: none;
     font-weight: bold;
 }
@@ -32,7 +31,7 @@
 }
 
 .link:hover {
-    background-color: #1B221B90;
+    background-color: #1b221b90;
     font-size: 17px;
     transition: 0.2s;
 }
@@ -40,6 +39,6 @@
 .line {
     margin: 15px 0;
     height: 0.5px;
-    background-color: #9DF674;
-    border: 1px solid #9DF674;
+    background-color: #9df674;
+    border: 1px solid #9df674;
 }
