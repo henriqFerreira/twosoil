@@ -1,4 +1,3 @@
-import { Poppins } from "next/font/google";
 import type { Metadata } from "next";
 import SideBar from "../components/Sidebar/Sidebar.component";
 import styles from "../styles/layouts/rootLayout.module.scss";

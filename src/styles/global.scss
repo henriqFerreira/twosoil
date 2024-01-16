@@ -4,9 +4,9 @@
     margin: V.$defaultMargin;
     padding: V.$defaultPadding;
     box-sizing: V.$defaultBoxSizing;
-    font-family: sans-serif;
 }
 
 body {
     font-size: V.$defaultFontSize;
+    font-family: V.$font-roboto-flex;
 }
