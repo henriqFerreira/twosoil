@@ -6,6 +6,9 @@
     gap: 10px;
     color: V.$primary-default;
     text-decoration: none;
+    font-size: V.$paragraph;
+
+    transition: width 0.2s linear;
 
     &:hover {
         background-color: V.$primary-800;
@@ -15,10 +18,11 @@
         background-color: V.$primary-800;
     }
 
-    &[data-collapsed="true"] {
+    &.collapsed {
         width: 36px;
         height: 36px;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-inline: 10px;
         border-radius: 4px;
 
         &:hover {
@@ -28,7 +32,7 @@
             $rotation: 45deg;
             $background: V.$pure-white;
             $layer: V.$layer-important;
-            
+
             &::before {
                 $size: 10px;
                 $translation: -50% -50%;
@@ -68,7 +72,8 @@
         }
     }
 
-    &[data-collapsed="false"] {
+    &.expanded {
+        width: 100%;
         padding: 7.5px 10px;
     }
 }

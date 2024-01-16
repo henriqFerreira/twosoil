@@ -35,8 +35,10 @@ export default function SidebarItem(properties: SidebarItemProperties) {
 		<Link
 			aria-label={label}
 			href={href}
-			className={styles.item}
-			data-collapsed={collapsed}
+			className={`
+				${styles.item}
+				${collapsed ? styles.collapsed : styles.expanded}
+			`}
 			data-active={pathname === href}
 		>
 			<span className={styles.icon}>{Icon && <Icon />}</span>

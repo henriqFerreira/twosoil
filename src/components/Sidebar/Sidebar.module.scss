@@ -11,11 +11,11 @@
     max-width: $maxWidth;
     height: $height;
     max-height: $maxHeight;
-    background-color: rgba(V.$background-color, .9);
+    background-color: rgba(V.$background-color, 0.9);
     padding: $padding;
     position: relative;
 
-    transition: all .1s linear;
+    transition: all 0.2s linear;
 
     &[data-collapsed="true"] {
         width: $minWidth;
@@ -26,7 +26,7 @@
     }
 
     &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -49,42 +49,56 @@
     }
 }
 
-// .sidebar[data-collapsed="true"] > .navigation {
-//     justify-content: center;
-//     align-items: center;
-//     background-color: red;
-// }
+.logo {
+    height: 100px;
+    transition: all 0.2s linear;
 
-// .link {
-//     display: flex;
-//     align-items: center;
-//     justify-content: left;
-//     padding: 15px 0 15px 15px;
-//     margin-top: 5px;
-//     gap: 10px;
-//     color: #edfde7;
-//     text-decoration: none;
-//     font-weight: bold;
-// }
+    &.expanded {
+        width: 100%;
+        padding: 0 16px 16px 16px;
+    }
 
-// .linkSecondary {
-//     font-weight: 400;
-// }
+    &.collapsed {
+        width: 100%;
+        rotate: -450deg;
+    }
+}
 
-// .iconArrow {
-//     position: absolute;
-//     right: 10px;
-// }
+.toggleButton {
+    $top: 3%;
+    $left: 98%;
+    $size: 18px;
+    $color: V.$pure-white;
+    $translate: -50% -50%;
+    $layer: V.$layer-important;
+    $radius: 100%;
 
-// .link:hover {
-//     background-color: #1b221b90;
-//     font-size: 17px;
-//     transition: 0.2s;
-// }
+    transition: all .2s linear;
 
-// .line {
-//     margin: 15px 0;
-//     height: 0.5px;
-//     background-color: #9df674;
-//     border: 1px solid #9df674;
-// }
+    position: absolute;
+    top: $top;
+    left: $left;
+    translate: $translate;
+    width: $size;
+    height: $size;
+    font-size: V.$paragraph;
+    background: none;
+    border: none;
+    border-radius: $radius;
+    cursor: pointer;
+    color: $color;
+    background-color: V.$pure-white;
+    color: V.$pure-black;
+    z-index: $layer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        filter: brightness(.8);
+    }
+
+    &:active {
+        filter: brightness(.6);
+    }
+}
