@@ -1,7 +1,8 @@
+import { Poppins } from "next/font/google";
 import type { Metadata } from "next";
+import SideBar from "../components/Sidebar/Sidebar.component";
 import styles from "../styles/layouts/rootLayout.module.scss";
 import "../styles/global.scss";
-import SideBar from "../components/Sidebar/Sidebar.component";
 
 export const metadata: Metadata = {
 	title: "TwoSoil",

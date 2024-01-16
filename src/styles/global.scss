@@ -1,12 +1,12 @@
-@use "./variables";
+@use "./variables" as V;
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: V.$defaultMargin;
+    padding: V.$defaultPadding;
+    box-sizing: V.$defaultBoxSizing;
     font-family: sans-serif;
 }
 
 body {
-    background-color: variables.$background-color;
+    font-size: V.$defaultFontSize;
 }

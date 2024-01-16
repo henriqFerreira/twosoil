@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import styles from "./Sidebar.module.scss";
 import {
@@ -11,19 +13,29 @@ import {
 	FaDatabase,
 	FaCloudUploadAlt,
 } from "react-icons/fa";
+import SidebarItem from "./components/SidebarItem/SidebarItem.component";
+import { useState } from "react";
 
 export default function Sidebar(): JSX.Element {
+	const [collapsed, setCollapsed] = useState<boolean>(true);
+
 	return (
-		<aside className={styles.container}>
-			<div className={styles.itemsLink}>
-				<Link href="/" className={styles.link}>
-					<FaBoxes />
-					<p>Meus talhões</p>
-					<div className={styles.iconArrow}>
-						<FaAngleRight />
-					</div>
-				</Link>
-				<Link
+		<aside className={styles.sidebar} data-collapsed={collapsed}>
+			<nav className={styles.navigation}>
+				<button onClick={() => setCollapsed(!collapsed)}>trocar</button>
+				<SidebarItem
+					label="Talhões"
+					icon="water"
+					href={"/"}
+					collapsed={collapsed}
+				/>
+				<SidebarItem
+					label="Clima"
+					icon="umbrella"
+					href={"/weather"}
+					collapsed={collapsed}
+				/>
+				{/* <Link
 					href="/"
 					className={`${styles.link} ${styles.linkSecondary}`}
 				>
@@ -72,8 +84,8 @@ export default function Sidebar(): JSX.Element {
 				>
 					<FaCloudUploadAlt />
 					<p>Importar arquivos</p>
-				</Link>
-			</div>
+				</Link> */}
+			</nav>
 		</aside>
 	);
 }

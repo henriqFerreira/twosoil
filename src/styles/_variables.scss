@@ -1,13 +1,59 @@
 $text-color: #ecfde5;
-$background-color: #0b0f0a;
-$primary-color: #9ff676;
-$secondary-color: #2003ab;
-$accent-color: #14f077;
 
-:export {
-    textColor: $text-color;
-    backgroundColor: $background-color;
-    primaryColor: $primary-color;
-    secondaryColor: $secondary-color;
-    accentColor: $accent-color;
-}
+$background-color: #0b0f0a;
+
+/**
+    Resets
+*/
+$defaultFontSize: 62.5%;
+$defaultMargin: 0;
+$defaultPadding: 0;
+$defaultBoxSizing: border-box;
+
+/**
+    Colors
+*/
+$pure-white: #ffffff;
+$soft-white: #f5f5f5;
+
+$pure-black: #000000;
+$soft-black: #0b0f0a;
+
+$primary-default: #9ff676;
+$primary-100: #8fdd6a;
+$primary-200: #7fc55e;
+$primary-300: #6fac53;
+$primary-400: #5f9447;
+$primary-500: #507b3b;
+$primary-600: #40622f;
+$primary-700: #304a23;
+$primary-800: #203118;
+$primary-900: #10190c;
+
+$secondary-default: #2003ab;
+$secondary-100: #1d039a;
+$secondary-200: #1a0289;
+$secondary-300: #160278;
+$secondary-400: #130267;
+$secondary-500: #100256;
+$secondary-600: #0d0144;
+$secondary-700: #0a0133;
+$secondary-800: #060122;
+$secondary-900: #030011;
+
+$accent-idea1: #d85a5a;
+$accent-idea2: #6a52b6;
+/*
+    Layers
+*/
+$layer-0: 0;
+$layer-1: 1;
+$layer-2: 2;
+$layer-3: 3;
+$layer-tooltips: 100;
+$layer-modal: 1000;
+$layer-important: 9999;
+
+/**
+    Fonts
+*/

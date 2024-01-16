@@ -7,7 +7,7 @@ export default function IndexPage() {
 	);
 
 	return (
-		<main>
+		<main style={{ overflow: "scroll" }}>
 			<MapWithNoSSR />
 		</main>
 	);
