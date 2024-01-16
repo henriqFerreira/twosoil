@@ -1,10 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import styles from "./Map.module.scss";
 import "leaflet/dist/leaflet.css";
+import "leaflet-draw/dist/leaflet.draw.css";
+
+import { DrawMap } from './controls/DrawMap.component';
+import { AreasSJCLayer } from './layers/areaSJCLayer';
+
+import { dataAreasSJC } from "./data/dataAreaSJC";
 
 export default function Map() {
+
+	const [geoFilter, setGeoFilter] = useState(null);   // Será utilizado para pegar o estado do GeoFilter
+    const getGeoFilter = () => geoFilter   
+
 	return (
 		<MapContainer
 			className={styles.mapContainer}
@@ -26,6 +37,8 @@ export default function Map() {
 					/>
 				</LayersControl.BaseLayer>
 			</LayersControl>
+			< AreasSJCLayer data={dataAreasSJC}  setGeoFilter={setGeoFilter} getGeoFilter={getGeoFilter}/>
+			< DrawMap />
 		</MapContainer>
 	);
 }
