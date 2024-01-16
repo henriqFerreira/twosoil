@@ -4,7 +4,7 @@ export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter }: any) => {
     
     const geoFilter = getGeoFilter();
 
-    const layer = (
+    return (
         <>
             <GeoJSON 
                 key='geo-json-areas-SJC'
@@ -27,9 +27,4 @@ export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter }: any) => {
             ></GeoJSON>
         </>
     );
-    return (
-        <LayersControl.Overlay name="Areas-SJC">
-            <LayerGroup>{layer}</LayerGroup>
-        </LayersControl.Overlay>
-    )
 }
