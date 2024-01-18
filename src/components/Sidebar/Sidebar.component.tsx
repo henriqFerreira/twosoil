@@ -6,7 +6,7 @@ import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import styles from "./Sidebar.module.scss";
 
 export default function Sidebar(): JSX.Element {
-	const [collapsed, setCollapsed] = useState<boolean>(false);
+	const [collapsed, setCollapsed] = useState<boolean>(true);
 
 	return (
 		<aside className={styles.sidebar} data-collapsed={collapsed}>
@@ -19,12 +19,10 @@ export default function Sidebar(): JSX.Element {
 			<svg
 				className={`
 					${styles.logo}
-					${
-						collapsed ? styles.collapsed : styles.expanded
-					}
+					${collapsed ? styles.collapsed : styles.expanded}
 				`}
-				width="auto"
-				height="auto"
+				width="100%"
+				height="100%"
 				viewBox="0 0 614 210"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
@@ -54,8 +52,8 @@ export default function Sidebar(): JSX.Element {
 					fill="white"
 				/>
 				<path
-					fill-rule="evenodd"
-					clip-rule="evenodd"
+					fillRule="evenodd"
+					clipRule="evenodd"
 					d="M390.128 209.641C383.021 209.641 376.608 208.124 370.888 205.091C365.255 202.057 360.791 197.724 357.498 192.091C354.291 186.457 352.688 179.871 352.688 172.331C352.688 164.877 354.335 158.334 357.628 152.701C360.921 146.981 365.428 142.604 371.148 139.571C376.868 136.537 383.281 135.021 390.388 135.021C397.495 135.021 403.908 136.537 409.628 139.571C415.348 142.604 419.855 146.981 423.148 152.701C426.441 158.334 428.088 164.877 428.088 172.331C428.088 179.784 426.398 186.371 423.018 192.091C419.725 197.724 415.175 202.057 409.368 205.091C403.648 208.124 397.235 209.641 390.128 209.641ZM400.918 185.721C397.971 188.841 394.375 190.401 390.128 190.401C385.881 190.401 382.328 188.841 379.468 185.721C376.695 182.601 375.308 178.137 375.308 172.331C375.308 166.437 376.738 161.974 379.598 158.941C382.458 155.821 386.055 154.261 390.388 154.261C394.635 154.261 398.188 155.821 401.048 158.941C403.995 162.061 405.468 166.524 405.468 172.331C405.468 178.137 403.951 182.601 400.918 185.721Z"
 					fill="white"
 				/>
@@ -68,6 +66,7 @@ export default function Sidebar(): JSX.Element {
 					fill="#27AE60"
 				/>
 			</svg>
+			<hr />
 			<nav className={styles.navigation}>
 				<SidebarItem
 					label="Talhões"

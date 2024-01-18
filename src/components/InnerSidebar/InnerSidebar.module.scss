@@ -1,0 +1,7 @@
+@use "../../styles/variables" as V;
+
+.innerSidebar {
+    $background: V.$soft-black;
+
+    background-color: rgba($background, .9);
+}
