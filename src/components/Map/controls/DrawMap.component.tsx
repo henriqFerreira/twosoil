@@ -1,5 +1,5 @@
 import { DrawEvents, Polygon } from "leaflet";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 
@@ -8,27 +8,45 @@ interface PolygonType {
     latlngs: Object;
 }
 
+interface NewArea {
+    type: string;
+    properties?: {}
+    geometry: {
+        coordinates: Object[];
+        type: string;
+    };
+}
+
 export const DrawMap = () => {
- 
+
     const [polygon, setPolygon] = useState<PolygonType[]>([]);
 
-    polygon.map((e) => (
-        console.log('Polygon:' , e)
-    ));
+    const novaArea: NewArea = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+            coordinates: polygon.map(({ latlngs }: any) => latlngs),
+            type: "Polygon",
+        },
+    }
 
+    if (novaArea.geometry.coordinates.length !== 0) {
+        console.log(novaArea)
+    } 
     const _onCreated = (e: any) => {
-        console.log(e);
+        // console.log('Created:' , e);
+        // console.log(e.layer.getLatLngs()[0]);
         const { layerType, layer } = e;
         if (layerType === 'polygon') {
             const { _leaflet_id } = layer;
             setPolygon((layers) => [
-                ...layers, { id: _leaflet_id, latlngs: layer.getLatLngs()[0] }
+                ...layers, { id: _leaflet_id, latlngs: layer.getLatLngs()[0],  }
             ]);
         }
     }
 
     const _onEdited = (e: any) => {
-        console.log(e);
+        console.log('Edited:' , e);
         const {layers: {_layers}, } = e;
 
         Object.values(_layers).map(({ _leaflet_id, editing }: any) => setPolygon((layers) => 
@@ -41,7 +59,7 @@ export const DrawMap = () => {
     };
 
     const _onDeleted = (e: any) => {
-        console.log(e);
+        console.log('Deleted:', e);
         const {layers: {_layers}, } = e;
 
         Object.values(_layers).map(({ _leaflet_id }: any) => setPolygon((layers) => layers.filter((l) => l.id !== _leaflet_id)));

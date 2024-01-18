@@ -1,10 +1,10 @@
 import { GeoJSON, LayersControl, LayerGroup } from "react-leaflet";
 
-export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter }: any) => {
+export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter, checked }: any) => {
     
     const geoFilter = getGeoFilter();
 
-    return (
+    const layer = (
         <>
             <GeoJSON 
                 key='geo-json-areas-SJC'
@@ -27,4 +27,11 @@ export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter }: any) => {
             ></GeoJSON>
         </>
     );
+    return (
+        <LayersControl.Overlay name="Areas SJC" checked={checked}>
+            <LayerGroup>
+                {layer}
+            </LayerGroup>
+        </LayersControl.Overlay>
+    )
 }
