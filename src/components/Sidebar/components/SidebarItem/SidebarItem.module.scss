@@ -8,10 +8,16 @@
     text-decoration: none;
     font-size: V.$paragraph;
 
-    transition: width 0.2s linear;
+    transition:
+        width 0.2s linear,
+        background-color 0.2s linear;
 
     &:hover {
-        background-color: V.$primary-800;
+        background-color: V.$gray-300;
+    }
+
+    &:active {
+        background-color: V.$primary-900;
     }
 
     &[data-active="true"] {

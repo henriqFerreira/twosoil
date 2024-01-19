@@ -1,4 +1,7 @@
 import dynamic from "next/dynamic";
+import Page from "../components/Page/Page.component";
+import InnerSidebar from "../components/InnerSidebar/InnerSidebar.component";
+import AreaItem from "../components/AreaItem/AreaItem.component";
 
 export default function IndexPage() {
 	const MapWithNoSSR = dynamic(
@@ -7,8 +10,13 @@ export default function IndexPage() {
 	);
 
 	return (
-		<main style={{ overflow: "scroll" }}>
+		<Page>
+			<InnerSidebar header="Talhões">
+				<ul>
+					<AreaItem name="Area name" cropType="Crop name" />
+				</ul>
+			</InnerSidebar>
 			<MapWithNoSSR />
-		</main>
+		</Page>
 	);
 }
