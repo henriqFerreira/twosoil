@@ -1,0 +1,27 @@
+@use "../../styles/variables" as V;
+
+.item {
+    $fontSize: V.$small-paragraph;
+    $padding: 8px 16px;
+    $color: V.$soft-white;
+
+    padding: $padding;
+    font-size: $fontSize;
+    color: $color;
+
+    transition: background-color 0.2s linear;
+
+    cursor: pointer;
+
+    & :first-child {
+        $fontSize: V.$paragraph;
+        font-size: $fontSize;
+        font-weight: bold;
+    }
+
+    &:hover {
+        $hoverBackground: V.$gray-400;
+
+        background-color: $hoverBackground;
+    }
+}

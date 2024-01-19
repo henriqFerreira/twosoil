@@ -19,7 +19,7 @@
     justify-content: flex-start;
     gap: 24px;
 
-    transition: width 0.2s linear;
+    transition: width 0.2s ease-in-out;
 
     &[data-collapsed="true"] {
         width: $minWidth;
@@ -70,40 +70,39 @@
 
     &.collapsed {
         width: 100%;
-        rotate: -450deg;
+        rotate: -90deg;
     }
 }
 
 .toggleButton {
-    $top: 3%;
-    $left: 98%;
-    $size: 18px;
-    $color: V.$pure-white;
+    $top: 2.5%;
+    $left: 100%;
+    $size: 22px;
+    $color: V.$primary-300;
     $translate: -50% -50%;
     $layer: V.$layer-important;
-    $radius: 100%;
+    $radius: 4px;
+    $fontSize: V.$paragraph;
 
     transition: all 0.2s linear;
 
-    position: absolute;
     top: $top;
     left: $left;
     translate: $translate;
     width: $size;
     height: $size;
-    font-size: V.$paragraph;
-    background: none;
-    border: none;
     border-radius: $radius;
-    cursor: pointer;
+    font-size: $fontSize;
     color: $color;
-    background-color: V.$pure-white;
-    color: V.$soft-black;
     z-index: $layer;
+
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    background: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 4px V.$soft-black;
 
     &:hover {
         filter: brightness(0.8);

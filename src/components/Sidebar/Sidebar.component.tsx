@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import SidebarItem from "./components/SidebarItem/SidebarItem.component";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import styles from "./Sidebar.module.scss";
 
 export default function Sidebar(): JSX.Element {
@@ -14,7 +14,7 @@ export default function Sidebar(): JSX.Element {
 				className={styles.toggleButton}
 				onClick={() => setCollapsed(!collapsed)}
 			>
-				{collapsed ? <FaAngleRight /> : <FaAngleLeft />}
+				<FaBars />
 			</button>
 			<svg
 				className={`

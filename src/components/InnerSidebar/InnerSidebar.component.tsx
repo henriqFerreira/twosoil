@@ -11,7 +11,8 @@ export default function InnerSidebar(props: InnerSidebarProperties) {
 
 	return (
 		<aside className={styles.innerSidebar} {...rest}>
-			<header>{header}</header>
+			<header className={styles.innerHeader}>{header}</header>
+			<hr />
 			{children}
 		</aside>
 	);

@@ -3,5 +3,33 @@
 .innerSidebar {
     $background: V.$soft-black;
 
-    background-color: rgba($background, .9);
+    display: flex;
+    flex-direction: column;
+    background-color: rgba($background, 0.95);
+
+    & hr {
+        $color: V.$primary-500;
+
+        width: 85%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        color: $color;
+    }
+}
+
+.innerHeader {
+    $fontSize: V.$paragraph;
+    $fontWeight: bold;
+    $height: 48px;
+    $paddingInline: 16px;
+    $color: V.$soft-white;
+
+    height: $height;
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    padding-inline: $paddingInline;
+    color: $color;
+
+    display: flex;
+    align-items: center;
 }
