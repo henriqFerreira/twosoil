@@ -76,7 +76,7 @@
 
 .toggleButton {
     $top: 2.5%;
-    $left: 100%;
+    $left: calc(100% + 16px + 11px);
     $size: 22px;
     $color: V.$primary-300;
     $translate: -50% -50%;

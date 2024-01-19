@@ -2,7 +2,7 @@ import { DetailedHTMLProps, HTMLAttributes, HTMLProps } from "react";
 import styles from "./InnerSidebar.module.scss";
 
 type InnerSidebarProperties = {
-	children: React.ReactNode;
+	children?: React.ReactNode;
 	header: string;
 } & DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 

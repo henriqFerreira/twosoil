@@ -21,7 +21,7 @@
     $fontSize: V.$paragraph;
     $fontWeight: bold;
     $height: 48px;
-    $paddingInline: 16px;
+    $paddingInline: calc(16px + 27px);
     $color: V.$soft-white;
 
     height: $height;

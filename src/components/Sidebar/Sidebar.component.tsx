@@ -26,6 +26,7 @@ export default function Sidebar(): JSX.Element {
 				viewBox="0 0 614 210"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
+				role="img"
 			>
 				<path
 					d="M185.877 136.061L166.247 208.601H141.677L130.237 161.541L118.407 208.601H93.9666L74.2066 136.061H96.4366L106.707 187.931L118.927 136.061H142.457L154.807 187.671L164.947 136.061H185.877Z"
