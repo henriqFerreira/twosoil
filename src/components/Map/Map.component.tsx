@@ -11,34 +11,47 @@ import { AreasSJCLayer } from './layers/areaSJCLayer';
 
 import { dataAreasSJC } from "./data/dataAreaSJC";
 
+import { PolygonType } from "./types/PoligonType";
+
 export default function Map() {
 
 	const [geoFilter, setGeoFilter] = useState(null);   // Será utilizado para pegar o estado do GeoFilter
     const getGeoFilter = () => geoFilter   
 
+	const [areaPolygonGlobal , setAreaPolygonGlobal] = useState<PolygonType[]>([]);
+	const getAreaPolygonGlobal = () => areaPolygonGlobal;
+
 	return (
-		<MapContainer
-			className={styles.mapContainer}
-			center={[0, 0]}
-			zoom={5}
-			scrollWheelZoom={true}
-		>
-			<LayersControl>
-				<LayersControl.BaseLayer  name="ESRI World Imagery">
-					<TileLayer
-						attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-						url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+		<>
+			<MapContainer
+				className={styles.mapContainer}
+				center={[0, 0]}
+				zoom={5}
+				scrollWheelZoom={true}
+			>
+				<LayersControl>
+					<LayersControl.BaseLayer  name="ESRI World Imagery">
+						<TileLayer
+							attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+							url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+						/>
+					</LayersControl.BaseLayer>
+					<LayersControl.BaseLayer checked name="OpenStreetMap">
+						<TileLayer
+							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+						/>
+					</LayersControl.BaseLayer>
+					< AreasSJCLayer 
+						data={dataAreasSJC} 
+						setGeoFilter={setGeoFilter} 
+						getGeoFilter={getGeoFilter} 
+						getAreaPolygonGlobal={getAreaPolygonGlobal}	
+						checked={true}
 					/>
-				</LayersControl.BaseLayer>
-				<LayersControl.BaseLayer checked name="OpenStreetMap">
-					<TileLayer
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-					/>
-				</LayersControl.BaseLayer>
-				< AreasSJCLayer data={dataAreasSJC} setGeoFilter={setGeoFilter} getGeoFilter={getGeoFilter} checked={true}/>
-			</LayersControl>
-			< DrawMap />
-		</MapContainer>
+				</LayersControl>
+				< DrawMap setAreaPolygonGlobal={setAreaPolygonGlobal}/>
+			</MapContainer>
+		</>
 	);
 }
