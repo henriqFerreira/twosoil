@@ -1,4 +1,7 @@
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import styles from "./CardMap.module.scss";
+import centroid from "@/src/utils/calculateCentroid.util";
+import { LatLngExpression } from "leaflet";
 
 type CardMapProperties = {
 	isCollapsed: boolean;
@@ -16,7 +19,21 @@ export function CardMap(props: CardMapProperties) {
 		>
 			{data && properties && (
 				<>
-					
+					<MapContainer
+						className={styles.mapContainer}
+						center={
+							[
+								centroid(data.geometry)[1],
+								centroid(data.geometry)[0],
+							] as LatLngExpression
+						}
+						zoom={12}
+						scrollWheelZoom={false}
+						zoomControl={false}
+					>
+						<TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
+						<GeoJSON data={data} />
+					</MapContainer>
 					<h1>{properties.area_name}</h1>
 					<p>Id: {properties.area_id}</p>
 					<hr />

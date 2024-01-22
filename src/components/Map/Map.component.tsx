@@ -19,7 +19,6 @@ import UserAreasLayer from "./layers/UserAreasLayer";
 import featuresToFeatureCollection from "@/src/utils/featuresToFeatureCollection.util";
 import DefaultAreasLayer from "./layers/DefaultAreasLayer";
 import { Map as LeafletMap } from "leaflet";
-import { CardMap } from "../CardMap/CardMap.component";
 
 type MapProperties = {
 	forwardRef: RefObject<LeafletMap>;
@@ -44,8 +43,6 @@ export default function Map(properties: MapProperties) {
 		[],
 	);
 
-	const isCollapsed: boolean = true;
-
 	return (
 		<MapContainer
 			ref={forwardRef}
@@ -56,16 +53,10 @@ export default function Map(properties: MapProperties) {
 		>
 			<LayersControl>
 				<LayersControl.BaseLayer checked name="ESRI World Imagery">
-					<TileLayer
-						attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-						url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-					/>
+					<TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" />
 				</LayersControl.BaseLayer>
 				<LayersControl.BaseLayer name="OpenStreetMap">
-					<TileLayer
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-					/>
+					<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 				</LayersControl.BaseLayer>
 				<DefaultAreasLayer
 					data={mappedPolygons as GeoJSONProps["data"]}
