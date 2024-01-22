@@ -15,7 +15,7 @@ type Session = {
 
 export type SessionContextType = {
 	session: Session;
-	update: () => void;
+	reload: () => void;
 };
 
 export const SessionContext = createContext<SessionContextType | null>(null);
@@ -41,6 +41,8 @@ export default function SessionContextProvider(
 		},
 	});
 
+	const [isReloading, setReload] = useState<boolean>(false);
+
 	useEffect(() => {
 		const defaultPolygons = async () => {
 			const data: GeoJSON.FeatureCollection = await getDefaultPolygons();
@@ -64,14 +66,12 @@ export default function SessionContextProvider(
 
 		defaultPolygons();
 		mappedPolygons();
-	}, []);
+	}, [isReloading]);
 
-	const update = () => {
-		console.log("Session: Update action.");
-	};
+	const reload = () => setReload((prevState) => !prevState);
 
 	return (
-		<SessionContext.Provider value={{ session, update }}>
+		<SessionContext.Provider value={{ session, reload }}>
 			{children}
 		</SessionContext.Provider>
 	);

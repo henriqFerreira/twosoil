@@ -1,4 +1,3 @@
-import { LeafletMouseEvent } from "leaflet";
 import {
 	GeoJSON,
 	GeoJSONProps,
@@ -8,7 +7,9 @@ import {
 
 type UserAreasLayerProperties = {} & GeoJSONProps;
 
-export default function UserAreasLayer(properties: UserAreasLayerProperties) {
+export default function UserAreasLayer(
+	properties: UserAreasLayerProperties,
+): JSX.Element {
 	const { data } = properties;
 
 	const layer = (

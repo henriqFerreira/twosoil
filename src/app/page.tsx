@@ -17,7 +17,7 @@ export default function IndexPage() {
 	const [showDefaultPolygons, setShowDefaultPolygons] =
 		useState<boolean>(false);
 
-	const { session, update } = useSession();
+	const { session } = useSession();
 	const { isLoading, userPolygons } = session;
 
 	return (
@@ -59,7 +59,13 @@ export default function IndexPage() {
 					</ul>
 				)}
 			</InnerSidebar>
-			<MapWithNoSSR showDefaultPolygons={showDefaultPolygons} />
+			<MapWithNoSSR
+				defaultPolygons={{
+					get: () => "",
+					set: setShowDefaultPolygons,
+					checked: showDefaultPolygons,
+				}}
+			/>
 		</Page>
 	);
 }

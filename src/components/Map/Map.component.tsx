@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
 	GeoJSONProps,
 	LayersControl,
@@ -18,16 +18,21 @@ import { PolygonType } from "./types/PoligonType";
 import useSession from "@/src/context/useSession.hook";
 import UserAreasLayer from "./layers/UserAreasLayer";
 import featuresToFeatureCollection from "@/src/utils/featuresToFeatureCollection.util";
+import DefaultAreasLayer from "./layers/DefaultAreasLayer";
 
 type MapProperties = {
-	showDefaultPolygons: boolean;
+	defaultPolygons: {
+		get: () => void;
+		set: Dispatch<SetStateAction<boolean>>;
+		checked: boolean;
+	};
 };
 
 export default function Map(properties: MapProperties) {
-	const { showDefaultPolygons } = properties;
+	const { defaultPolygons } = properties;
 
 	const { session } = useSession();
-	const { isLoading, mappedPolygons, userPolygons } = session;
+	const { mappedPolygons, userPolygons } = session;
 
 	const [geoFilter, setGeoFilter] = useState(null); // Será utilizado para pegar o estado do GeoFilter
 	const getGeoFilter = () => geoFilter;
@@ -45,24 +50,22 @@ export default function Map(properties: MapProperties) {
 			scrollWheelZoom={true}
 		>
 			<LayersControl>
-				<LayersControl.BaseLayer name="ESRI World Imagery">
+				<LayersControl.BaseLayer checked name="ESRI World Imagery">
 					<TileLayer
 						attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
 						url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
 					/>
 				</LayersControl.BaseLayer>
-				<LayersControl.BaseLayer checked name="OpenStreetMap">
+				<LayersControl.BaseLayer name="OpenStreetMap">
 					<TileLayer
 						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 					/>
 				</LayersControl.BaseLayer>
-				<AreasSJCLayer
-					data={mappedPolygons}
-					setGeoFilter={setGeoFilter}
-					getGeoFilter={getGeoFilter}
-					getAreaPolygonGlobal={getAreaPolygonGlobal}
-					checked={showDefaultPolygons}
+				<DefaultAreasLayer
+					data={mappedPolygons as GeoJSONProps["data"]}
+					checked={defaultPolygons.checked}
+					setter={defaultPolygons.set}
 				/>
 				<UserAreasLayer
 					data={
