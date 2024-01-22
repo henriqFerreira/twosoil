@@ -6,6 +6,7 @@ import InnerSidebar from "../components/InnerSidebar/InnerSidebar.component";
 import AreaItem from "../components/AreaItem/AreaItem.component";
 import useSession from "../context/useSession.hook";
 import { useState } from "react";
+import styles from "../styles/pages/root.module.scss";
 
 export default function IndexPage() {
 	const MapWithNoSSR = dynamic(
@@ -16,7 +17,7 @@ export default function IndexPage() {
 	const [showDefaultPolygons, setShowDefaultPolygons] =
 		useState<boolean>(false);
 
-	const { session } = useSession();
+	const { session, update } = useSession();
 	const { isLoading, userPolygons } = session;
 
 	return (
@@ -26,32 +27,37 @@ export default function IndexPage() {
 					<p style={{ color: "white" }}>Loading...</p>
 				)}
 
-				{!isLoading.userPolygons && userPolygons.length <= 0 && (
-					<button
-						onClick={(e) => {
-							e.preventDefault();
-							setShowDefaultPolygons((prevState) => !prevState);
-						}}
-					>
-						{!showDefaultPolygons
-							? "Selecionar áreas no mapa"
-							: "Cancelar"}
-					</button>
+				<ul className={styles.areas}>
+					{!isLoading.userPolygons &&
+						userPolygons.length >= 0 &&
+						userPolygons.map((feature) => {
+							const properties = feature.properties!;
+
+							return (
+								<AreaItem
+									key={properties.area_id}
+									name={properties.area_name}
+									cropType={properties.crop_name}
+								/>
+							);
+						})}
+				</ul>
+
+				{!isLoading.userPolygons && (
+					<ul className={styles.buttons}>
+						<button
+							onClick={(e) => {
+								setShowDefaultPolygons(
+									(prevState) => !prevState,
+								);
+							}}
+						>
+							{!showDefaultPolygons
+								? "Selecionar áreas no mapa"
+								: "Cancelar"}
+						</button>
+					</ul>
 				)}
-
-				{!isLoading.userPolygons &&
-					userPolygons.length >= 0 &&
-					userPolygons.map((feature) => {
-						const properties = feature.properties!;
-
-						return (
-							<AreaItem
-								key={properties.area_id}
-								name={properties.area_name}
-								cropType={properties.crop_name}
-							/>
-						);
-					})}
 			</InnerSidebar>
 			<MapWithNoSSR showDefaultPolygons={showDefaultPolygons} />
 		</Page>

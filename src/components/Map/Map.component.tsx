@@ -1,7 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
+import { useState } from "react";
+import {
+	GeoJSONProps,
+	LayersControl,
+	MapContainer,
+	TileLayer,
+} from "react-leaflet";
 import styles from "./Map.module.scss";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
@@ -9,8 +14,10 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import { DrawMap } from "./controls/DrawMap.component";
 import { AreasSJCLayer } from "./layers/areaSJCLayer";
 
-import { dataAreasSJC } from "./data/dataAreaSJC";
 import { PolygonType } from "./types/PoligonType";
+import useSession from "@/src/context/useSession.hook";
+import UserAreasLayer from "./layers/UserAreasLayer";
+import featuresToFeatureCollection from "@/src/utils/featuresToFeatureCollection.util";
 
 type MapProperties = {
 	showDefaultPolygons: boolean;
@@ -18,6 +25,9 @@ type MapProperties = {
 
 export default function Map(properties: MapProperties) {
 	const { showDefaultPolygons } = properties;
+
+	const { session } = useSession();
+	const { isLoading, mappedPolygons, userPolygons } = session;
 
 	const [geoFilter, setGeoFilter] = useState(null); // Será utilizado para pegar o estado do GeoFilter
 	const getGeoFilter = () => geoFilter;
@@ -48,11 +58,18 @@ export default function Map(properties: MapProperties) {
 					/>
 				</LayersControl.BaseLayer>
 				<AreasSJCLayer
-					data={dataAreasSJC}
+					data={mappedPolygons}
 					setGeoFilter={setGeoFilter}
 					getGeoFilter={getGeoFilter}
 					getAreaPolygonGlobal={getAreaPolygonGlobal}
 					checked={showDefaultPolygons}
+				/>
+				<UserAreasLayer
+					data={
+						featuresToFeatureCollection(
+							userPolygons,
+						) as GeoJSONProps["data"]
+					}
 				/>
 			</LayersControl>
 			<DrawMap setAreaPolygonGlobal={setAreaPolygonGlobal} />

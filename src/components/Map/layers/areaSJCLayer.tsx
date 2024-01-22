@@ -93,7 +93,7 @@ export const AreasSJCLayer = ({
 		<>
 			<GeoJSON
 				key="geo-json-areas-SJC"
-				data={valuesFromServer}
+				data={data}
 				eventHandlers={{
 					click: (e) => {
 						setGeoFilter((prevState: any) => {

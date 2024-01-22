@@ -1,0 +1,44 @@
+@use "../../styles/variables" as V;
+
+.areas {
+    flex: 1;
+}
+
+.buttons {
+    $width: 100%;
+    $padding: 16px;
+
+    width: $width;
+    padding: $padding;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    & button {
+        $padding: 12px 8px;
+        $radius: 4px;
+        $background: V.$primary-800;
+        $color: V.$primary-default;
+
+        width: $width;
+        padding: $padding;
+        border: none;
+        border-radius: $radius;
+        background-color: $background;
+        color: $color;
+
+        cursor: pointer;
+        transition: background-color 0.2s linear;
+
+        &:hover {
+            $background: V.$primary-700;
+            background-color: $background;
+        }
+
+        &:active {
+            $background: V.$primary-800;
+            background-color: $background;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes, HTMLProps } from "react";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 import styles from "./InnerSidebar.module.scss";
 
 type InnerSidebarProperties = {
