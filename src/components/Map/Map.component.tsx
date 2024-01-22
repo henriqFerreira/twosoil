@@ -10,6 +10,7 @@ import { DrawMap } from "./controls/DrawMap.component";
 import { AreasSJCLayer } from "./layers/areaSJCLayer";
 
 import { dataAreasSJC } from "./data/dataAreaSJC";
+import { PolygonType } from "./types/PoligonType";
 
 type MapProperties = {
 	showDefaultPolygons: boolean;
@@ -21,11 +22,16 @@ export default function Map(properties: MapProperties) {
 	const [geoFilter, setGeoFilter] = useState(null); // Será utilizado para pegar o estado do GeoFilter
 	const getGeoFilter = () => geoFilter;
 
+	const [areaPolygonGlobal, setAreaPolygonGlobal] = useState<PolygonType[]>(
+		[],
+	);
+	const getAreaPolygonGlobal = () => areaPolygonGlobal;
+
 	return (
 		<MapContainer
 			className={styles.mapContainer}
-			center={[0, 0]}
-			zoom={5}
+			center={[-23.14854527489196, -45.82375093421496]}
+			zoom={13}
 			scrollWheelZoom={true}
 		>
 			<LayersControl>
@@ -45,10 +51,11 @@ export default function Map(properties: MapProperties) {
 					data={dataAreasSJC}
 					setGeoFilter={setGeoFilter}
 					getGeoFilter={getGeoFilter}
+					getAreaPolygonGlobal={getAreaPolygonGlobal}
 					checked={showDefaultPolygons}
 				/>
 			</LayersControl>
-			<DrawMap />
+			<DrawMap setAreaPolygonGlobal={setAreaPolygonGlobal} />
 		</MapContainer>
 	);
 }
