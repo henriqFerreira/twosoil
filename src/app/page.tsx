@@ -5,7 +5,7 @@ import Page from "../components/Page/Page.component";
 import InnerSidebar from "../components/InnerSidebar/InnerSidebar.component";
 import AreaItem from "../components/AreaItem/AreaItem.component";
 import useSession from "../context/useSession.hook";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "../styles/pages/root.module.scss";
 
 export default function IndexPage() {
@@ -24,8 +24,6 @@ export default function IndexPage() {
 
 	const { session } = useSession();
 	const { isLoading, userPolygons } = session;
-
-	useEffect(() => {}, []);
 
 	return (
 		<Page>
