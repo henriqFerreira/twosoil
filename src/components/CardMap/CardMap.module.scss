@@ -1,0 +1,51 @@
+@use "../../styles/variables" as V;
+
+.container {
+    z-index: V.$layer-important;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: 30px;
+    background-color: rgba(V.$background-color, 0.95);
+    width: 400px;
+    height: 85vh;
+    border-radius: 15px;
+    padding-inline: 20px;
+    box-shadow:
+        rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.titleHeader {
+    color: V.$text-color;
+    font-size: V.$heading-5;
+    text-align: center;
+    padding: 25px 0;
+}
+
+.hr {
+    border: 1px solid V.$text-color;
+    margin: 0 auto;
+}
+
+.contentBody {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.coordsContentBody {
+    display: block;
+    text-align: justify;
+}
+.titleBody {
+    color: V.$text-color;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.paragraphBody {
+    color: V.$text-color;
+    font-size: V.$paragraph;
+}

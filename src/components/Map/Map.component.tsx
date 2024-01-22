@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, RefObject, SetStateAction, useState } from "react";
 import {
 	GeoJSONProps,
 	LayersControl,
@@ -12,15 +12,16 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 
 import { DrawMap } from "./controls/DrawMap.component";
-import { AreasSJCLayer } from "./layers/areaSJCLayer";
 
 import { PolygonType } from "./types/PoligonType";
 import useSession from "@/src/context/useSession.hook";
 import UserAreasLayer from "./layers/UserAreasLayer";
 import featuresToFeatureCollection from "@/src/utils/featuresToFeatureCollection.util";
 import DefaultAreasLayer from "./layers/DefaultAreasLayer";
+import { Map as LeafletMap } from "leaflet";
 
 type MapProperties = {
+	forwardRef: RefObject<LeafletMap>;
 	defaultPolygons: {
 		get: () => void;
 		set: Dispatch<SetStateAction<boolean>>;
@@ -29,13 +30,10 @@ type MapProperties = {
 };
 
 export default function Map(properties: MapProperties) {
-	const { defaultPolygons } = properties;
+	const { forwardRef, defaultPolygons } = properties;
 
 	const { session } = useSession();
 	const { mappedPolygons, userPolygons } = session;
-
-	const [geoFilter, setGeoFilter] = useState(null); // Será utilizado para pegar o estado do GeoFilter
-	const getGeoFilter = () => geoFilter;
 
 	const [areaPolygonGlobal, setAreaPolygonGlobal] = useState<PolygonType[]>(
 		[],
@@ -44,6 +42,7 @@ export default function Map(properties: MapProperties) {
 
 	return (
 		<MapContainer
+			ref={forwardRef}
 			className={styles.mapContainer}
 			center={[-23.14854527489196, -45.82375093421496]}
 			zoom={13}

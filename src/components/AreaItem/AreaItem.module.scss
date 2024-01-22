@@ -9,12 +9,18 @@
     font-size: $fontSize;
     color: $color;
 
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+
     transition: background-color 0.2s linear;
 
     cursor: pointer;
 
     & :first-child {
         $fontSize: V.$paragraph;
+
         font-size: $fontSize;
         font-weight: bold;
     }
@@ -23,5 +29,11 @@
         $hoverBackground: V.$gray-400;
 
         background-color: $hoverBackground;
+    }
+
+    &:active {
+        $activeBackground: V.$gray-500;
+
+        background-color: $activeBackground;
     }
 }

@@ -5,8 +5,9 @@ import Page from "../components/Page/Page.component";
 import InnerSidebar from "../components/InnerSidebar/InnerSidebar.component";
 import AreaItem from "../components/AreaItem/AreaItem.component";
 import useSession from "../context/useSession.hook";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "../styles/pages/root.module.scss";
+import * as geojson from "geojson";
 
 export default function IndexPage() {
 	const MapWithNoSSR = dynamic(
@@ -14,8 +15,12 @@ export default function IndexPage() {
 		{ ssr: false },
 	);
 
+	const mapRef = useRef(null);
+
 	const [showDefaultPolygons, setShowDefaultPolygons] =
 		useState<boolean>(false);
+
+	const [selectedPolygon, setSelectedPolygon] = useState<null>(null);
 
 	const { session } = useSession();
 	const { isLoading, userPolygons } = session;
@@ -38,6 +43,10 @@ export default function IndexPage() {
 									key={properties.area_id}
 									name={properties.area_name}
 									cropType={properties.crop_name}
+									mapRef={mapRef}
+									feature={
+										feature as GeoJSON.Feature<GeoJSON.Polygon>
+									}
 								/>
 							);
 						})}
@@ -60,6 +69,7 @@ export default function IndexPage() {
 				)}
 			</InnerSidebar>
 			<MapWithNoSSR
+				forwardRef={mapRef}
 				defaultPolygons={{
 					get: () => "",
 					set: setShowDefaultPolygons,
