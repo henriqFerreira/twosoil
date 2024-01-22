@@ -19,6 +19,7 @@ import UserAreasLayer from "./layers/UserAreasLayer";
 import featuresToFeatureCollection from "@/src/utils/featuresToFeatureCollection.util";
 import DefaultAreasLayer from "./layers/DefaultAreasLayer";
 import { Map as LeafletMap } from "leaflet";
+import { CardMap } from "../CardMap/CardMap.component";
 
 type MapProperties = {
 	forwardRef: RefObject<LeafletMap>;
@@ -38,7 +39,12 @@ export default function Map(properties: MapProperties) {
 	const [areaPolygonGlobal, setAreaPolygonGlobal] = useState<PolygonType[]>(
 		[],
 	);
-	const getAreaPolygonGlobal = () => areaPolygonGlobal;
+
+	const [ areaPolygonOnClick, setAreaPolygonOnClick] = useState(null)
+	const getAreaPolygonOnClick = () => areaPolygonOnClick;
+	console.log(getAreaPolygonOnClick())
+
+	const isCollapsed:boolean = true;
 
 	return (
 		<MapContainer
@@ -72,9 +78,12 @@ export default function Map(properties: MapProperties) {
 							userPolygons,
 						) as GeoJSONProps["data"]
 					}
+					setAreaPolygonOnClick={setAreaPolygonOnClick}
+					getAreaPolygonOnClick={getAreaPolygonOnClick}
 				/>
 			</LayersControl>
 			<DrawMap setAreaPolygonGlobal={setAreaPolygonGlobal} />
+			<CardMap isCollapsed={isCollapsed} data={getAreaPolygonOnClick}/>
 		</MapContainer>
 	);
 }

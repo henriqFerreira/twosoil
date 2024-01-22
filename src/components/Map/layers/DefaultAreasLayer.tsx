@@ -30,6 +30,7 @@ export default function DefaultAreasLayer<T>(
 			eventHandlers={{
 				click: (e) => {
 					const feature = e.propagatedFrom.feature;
+					console.log(feature);
 
 					addNewPolygon(feature).finally(() => {
 						setter(false);

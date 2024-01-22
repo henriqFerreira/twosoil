@@ -1,6 +1,7 @@
 import styles from "./CardMap.module.scss";
 
-export function CardMap({ isCollapsed }: any) {
+export function CardMap({ isCollapsed, data }: any) {
+
 	return (
 		<>
 			{isCollapsed && (

@@ -5,19 +5,31 @@ import {
 	LayersControl,
 } from "react-leaflet";
 
-type UserAreasLayerProperties = {} & GeoJSONProps;
+type UserAreasLayerProperties = {getAreaPolygonOnClick: any, setAreaPolygonOnClick: any } & GeoJSONProps;
 
 export default function UserAreasLayer(
 	properties: UserAreasLayerProperties,
 ): JSX.Element {
-	const { data } = properties;
+	const { data, getAreaPolygonOnClick, setAreaPolygonOnClick } = properties;
+	const areaPolygonOnClick = getAreaPolygonOnClick();
 
 	const layer = (
 		<GeoJSON
 			data={data}
-			style={{
-				color: "#2003ab",
-				weight: 2,
+			eventHandlers={{
+				click: (e) => {
+					setAreaPolygonOnClick((prevState: any) => {
+						const same = prevState === e.propagatedFrom.feature;
+						return same ? null : e.propagatedFrom.feature;
+					});
+				},
+			}}
+			style={(feature) => {
+				return {
+					color: areaPolygonOnClick === feature ? "red" : "blue",
+					weight: 0.5,
+					fillOpacity: areaPolygonOnClick === feature ? 0.4 : 0.25,
+				};
 			}}
 		/>
 	);
