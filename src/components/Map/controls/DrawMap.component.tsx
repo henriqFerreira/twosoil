@@ -29,11 +29,19 @@ export const DrawMap = ( { setAreaPolygonGlobal }: any ) => {         //tipar co
         // console.log('Edited:' , e);
         const {layers: {_layers}, } = e;
 
-        Object.values(_layers).map(({ _leaflet_id, editing }: any) => setPolygon((layers) => 
-        layers.map( l => l.id === _leaflet_id ? 
-            { ...l, latlngs: 
-                {...editing.latlngs[0]} 
-            }
+        Object.values(_layers).map(({ _leaflet_id, editing }: any) => 
+        setPolygon((layers) => 
+            layers.map( l => l.id === _leaflet_id ? 
+                { ...l, latlngs: 
+                    {...editing.latlngs[0]} 
+                }
+                : l
+            ))
+        );
+
+        Object.values(_layers).map(({ _leaflet_id, editing }: any) => setAreaPolygonGlobal((layers: any) => 
+        layers.map( (l: any) => l.id === _leaflet_id ? 
+            { ...l, latlngs: {...editing.latlngs[0]}}
             : l
         )));
     };
@@ -51,8 +59,8 @@ export const DrawMap = ( { setAreaPolygonGlobal }: any ) => {         //tipar co
                 <EditControl 
                     position='topright'
                     onCreated={_onCreated}
-                    onEdited={_onEdited}
-                    onDeleted={_onDeleted}
+                    // onEdited={_onEdited}
+                    // onDeleted={_onDeleted}
                     draw={{
                         rectangle: false,
                         polyline: false,
@@ -60,6 +68,10 @@ export const DrawMap = ( { setAreaPolygonGlobal }: any ) => {         //tipar co
                         circlemarker: false,
                         marker: false,
                     }}
+                    edit={{
+                        edit: false,
+                        remove: false
+                    }}       
                 />
             </FeatureGroup>
         </>

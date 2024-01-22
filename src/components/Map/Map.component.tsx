@@ -15,8 +15,10 @@ import { PolygonType } from "./types/PoligonType";
 
 export default function Map() {
 
-	const [geoFilter, setGeoFilter] = useState(null);   // Será utilizado para pegar o estado do GeoFilter
-    const getGeoFilter = () => geoFilter   
+
+	const [geoFilter, setGeoFilter] = useState(null);   // Será utilizado para pegar o estado do GeoFilter QUANDO CLICADO
+    const getGeoFilter = () => geoFilter
+
 
 	const [areaPolygonGlobal , setAreaPolygonGlobal] = useState<PolygonType[]>([]);
 	const getAreaPolygonGlobal = () => areaPolygonGlobal;
@@ -25,8 +27,8 @@ export default function Map() {
 		<>
 			<MapContainer
 				className={styles.mapContainer}
-				center={[0, 0]}
-				zoom={5}
+				center={[-23.14854527489196,-45.82375093421496]}
+				zoom={13}
 				scrollWheelZoom={true}
 			>
 				<LayersControl>

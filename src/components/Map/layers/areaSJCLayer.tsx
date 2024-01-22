@@ -3,23 +3,34 @@ import { GeoJSON, LayersControl, LayerGroup } from "react-leaflet";
 
 import { NewAreaType } from "../types/NewAreaType";
 
-export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter, checked, getAreaPolygonGlobal }: any) => {
+let variavelGlobal: boolean = false
+
+export const AreasSJCLayer = ({ 
+        data, 
+        setGeoFilter, 
+        getGeoFilter, 
+        checked, 
+        getAreaPolygonGlobal, 
+    }: any) => {
     
     const geoFilter = getGeoFilter();
 
     const [ valuesFromServer, setValuesFromServer ] = useState<any>();    //tipar corretamente com GeoJsonOptions
     const areaPolygonGlobal = getAreaPolygonGlobal();
 
-    const novaArea: NewAreaType = {
+    let novaArea: NewAreaType = {
         type: "Feature",
         properties: {},
         geometry: {
-            coordinates: areaPolygonGlobal.map(({ latlngs }: any) => latlngs),
+            coordinates: areaPolygonGlobal.map(({ latlngs }: any) => 
+                latlngs.map((c: any) => [c.lng, c.lat])),
             type: "Polygon",
         },
     }
 
-    console.log(novaArea)
+    if (novaArea.geometry.coordinates.length !== 0) {
+        variavelGlobal = true;
+    }
 
     async function getValuesFromServer() {
         try {
@@ -40,21 +51,29 @@ export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter, checked, getAr
 
     async function addValuesFromServer() {
         try {
-            if (novaArea.geometry.coordinates.length !== 0) return;
+            if (novaArea.geometry.coordinates.length === 0) return;
             const response = await fetch('http://localhost:5000/add-new-polygon', { 
                 method: 'POST',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(novaArea),
+                body: JSON.stringify({
+                    type: novaArea.type,
+                    properties: novaArea.properties,
+                    geometry: novaArea.geometry,
+                    coordinates: novaArea.geometry.coordinates
+                }),
             })
             if (!response.ok) {
                 throw new Error(`Erro na solicitação: ${response.statusText}`);
             }
-
+            
             const data = await response.json();
             setValuesFromServer(data.data);
+            variavelGlobal = false;
+            alert('Área salva com sucesso!');
+            window.location.reload();       //melhorar esse reload aqui PMDS?????
         }
         catch (error) {
             console.error('Error:', error);
@@ -62,8 +81,9 @@ export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter, checked, getAr
     }
 
     useEffect(() => {
-        getValuesFromServer()
-    },[])
+        addValuesFromServer();
+        getValuesFromServer();
+    },[variavelGlobal])
 
     const layer = valuesFromServer && (
         <>
@@ -85,7 +105,7 @@ export const AreasSJCLayer = ({ data, setGeoFilter, getGeoFilter, checked, getAr
                         fillOpacity: geoFilter === feature? 0.4 : 0.25
                     }
                 }}
-            ></GeoJSON>
+                ></GeoJSON>
         </>
     );
     return (
