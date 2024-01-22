@@ -15,7 +15,7 @@ type AreaItemProperties = {
 	cropType: string;
 	mapRef: RefObject<LeafletMap>;
 	feature: GeoJSON.Feature<GeoJSON.Polygon>;
-	setter: Dispatch<SetStateAction<GeoJSON.Feature | null>>;
+	setter: Dispatch<SetStateAction<GeoJSON.Feature<GeoJSON.Polygon> | null>>;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 export default function AreaItem(properties: AreaItemProperties) {
@@ -31,6 +31,7 @@ export default function AreaItem(properties: AreaItemProperties) {
 		const latLng: LatLng = new LatLng(center[1], center[0]);
 
 		map.panTo(latLng);
+		setter(feature);
 	};
 
 	return (

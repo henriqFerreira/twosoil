@@ -5,8 +5,9 @@ import Page from "../components/Page/Page.component";
 import InnerSidebar from "../components/InnerSidebar/InnerSidebar.component";
 import AreaItem from "../components/AreaItem/AreaItem.component";
 import useSession from "../context/useSession.hook";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "../styles/pages/root.module.scss";
+import { CardMap } from "../components/CardMap/CardMap.component";
 
 export default function IndexPage() {
 	const MapWithNoSSR = dynamic(
@@ -20,10 +21,14 @@ export default function IndexPage() {
 		useState<boolean>(false);
 
 	const [selectedPolygon, setSelectedPolygon] =
-		useState<GeoJSON.Feature | null>(null);
+		useState<GeoJSON.Feature<GeoJSON.Polygon> | null>(null);
 
 	const { session } = useSession();
 	const { isLoading, userPolygons } = session;
+
+	useEffect(() => {
+		console.log(selectedPolygon);
+	}, [selectedPolygon]);
 
 	return (
 		<Page>
@@ -76,7 +81,12 @@ export default function IndexPage() {
 					set: setShowDefaultPolygons,
 					checked: showDefaultPolygons,
 				}}
+				userMappedPolygons={{
+					get: () => selectedPolygon,
+					set: setSelectedPolygon,
+				}}
 			/>
+			<CardMap isCollapsed={!selectedPolygon} data={selectedPolygon} />
 		</Page>
 	);
 }

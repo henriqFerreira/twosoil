@@ -28,10 +28,14 @@ type MapProperties = {
 		set: Dispatch<SetStateAction<boolean>>;
 		checked: boolean;
 	};
+	userMappedPolygons: {
+		get: () => GeoJSON.Feature | null;
+		set: Dispatch<SetStateAction<GeoJSON.Feature<GeoJSON.Polygon> | null>>;
+	};
 };
 
 export default function Map(properties: MapProperties) {
-	const { forwardRef, defaultPolygons } = properties;
+	const { forwardRef, defaultPolygons, userMappedPolygons } = properties;
 
 	const { session } = useSession();
 	const { mappedPolygons, userPolygons } = session;
@@ -40,11 +44,7 @@ export default function Map(properties: MapProperties) {
 		[],
 	);
 
-	const [ areaPolygonOnClick, setAreaPolygonOnClick] = useState(null)
-	const getAreaPolygonOnClick = () => areaPolygonOnClick;
-	console.log(getAreaPolygonOnClick())
-
-	const isCollapsed:boolean = true;
+	const isCollapsed: boolean = true;
 
 	return (
 		<MapContainer
@@ -78,12 +78,11 @@ export default function Map(properties: MapProperties) {
 							userPolygons,
 						) as GeoJSONProps["data"]
 					}
-					setAreaPolygonOnClick={setAreaPolygonOnClick}
-					getAreaPolygonOnClick={getAreaPolygonOnClick}
+					getter={userMappedPolygons.get}
+					setter={userMappedPolygons.set}
 				/>
 			</LayersControl>
 			<DrawMap setAreaPolygonGlobal={setAreaPolygonGlobal} />
-			<CardMap isCollapsed={isCollapsed} data={getAreaPolygonOnClick}/>
 		</MapContainer>
 	);
 }

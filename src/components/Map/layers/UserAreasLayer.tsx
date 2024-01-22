@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import {
 	GeoJSON,
 	GeoJSONProps,
@@ -5,31 +6,35 @@ import {
 	LayersControl,
 } from "react-leaflet";
 
-type UserAreasLayerProperties = {getAreaPolygonOnClick: any, setAreaPolygonOnClick: any } & GeoJSONProps;
+type UserAreasLayerProperties = {
+	getter: () => GeoJSON.Feature | null;
+	setter: Dispatch<SetStateAction<GeoJSON.Feature<GeoJSON.Polygon> | null>>;
+} & GeoJSONProps;
 
 export default function UserAreasLayer(
 	properties: UserAreasLayerProperties,
 ): JSX.Element {
-	const { data, getAreaPolygonOnClick, setAreaPolygonOnClick } = properties;
-	const areaPolygonOnClick = getAreaPolygonOnClick();
+	const { data, setter, getter } = properties;
 
 	const layer = (
 		<GeoJSON
 			data={data}
 			eventHandlers={{
 				click: (e) => {
-					setAreaPolygonOnClick((prevState: any) => {
-						const same = prevState === e.propagatedFrom.feature;
-						return same ? null : e.propagatedFrom.feature;
-					});
+					const feature = e.propagatedFrom.feature;
+					const gottenFeature = getter();
+
+					if (feature === gottenFeature) {
+						setter(null);
+						return;
+					}
+
+					setter(feature);
 				},
 			}}
-			style={(feature) => {
-				return {
-					color: areaPolygonOnClick === feature ? "red" : "blue",
-					weight: 0.5,
-					fillOpacity: areaPolygonOnClick === feature ? 0.4 : 0.25,
-				};
+			style={{
+				color: "#2003ab",
+				weight: 2,
 			}}
 		/>
 	);
