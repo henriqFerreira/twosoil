@@ -6,6 +6,8 @@
     display: flex;
     flex-direction: column;
     background-color: rgba($background, 0.95);
+    border-radius: 12px 0 0 12px;
+    filter: drop-shadow(-8px 0 16px V.$soft-black);
 
     & hr {
         $color: V.$primary-500;

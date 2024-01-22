@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SideBar from "../components/Sidebar/Sidebar.component";
 import styles from "../styles/layouts/rootLayout.module.scss";
 import "../styles/global.scss";
+import SessionContextProvider from "../context/SessionContext.context";
 
 export const metadata: Metadata = {
 	title: "TwoSoil",
@@ -16,8 +17,10 @@ export default function RootLayout({
 	return (
 		<html lang="pt-br">
 			<body className={styles.rootLayout}>
-				<SideBar />
-				{children}
+				<SessionContextProvider>
+					<SideBar />
+					{children}
+				</SessionContextProvider>
 			</body>
 		</html>
 	);

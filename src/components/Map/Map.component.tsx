@@ -1,20 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet";
 import styles from "./Map.module.scss";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 
-import { DrawMap } from './controls/DrawMap.component';
-import { AreasSJCLayer } from './layers/areaSJCLayer';
+import { DrawMap } from "./controls/DrawMap.component";
+import { AreasSJCLayer } from "./layers/areaSJCLayer";
 
 import { dataAreasSJC } from "./data/dataAreaSJC";
 
-export default function Map() {
+type MapProperties = {
+	showDefaultPolygons: boolean;
+};
 
-	const [geoFilter, setGeoFilter] = useState(null);   // Será utilizado para pegar o estado do GeoFilter
-    const getGeoFilter = () => geoFilter   
+export default function Map(properties: MapProperties) {
+	const { showDefaultPolygons } = properties;
+
+	const [geoFilter, setGeoFilter] = useState(null); // Será utilizado para pegar o estado do GeoFilter
+	const getGeoFilter = () => geoFilter;
 
 	return (
 		<MapContainer
@@ -24,7 +29,7 @@ export default function Map() {
 			scrollWheelZoom={true}
 		>
 			<LayersControl>
-				<LayersControl.BaseLayer  name="ESRI World Imagery">
+				<LayersControl.BaseLayer name="ESRI World Imagery">
 					<TileLayer
 						attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
 						url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
@@ -36,9 +41,14 @@ export default function Map() {
 						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 					/>
 				</LayersControl.BaseLayer>
-				< AreasSJCLayer data={dataAreasSJC} setGeoFilter={setGeoFilter} getGeoFilter={getGeoFilter} checked={true}/>
+				<AreasSJCLayer
+					data={dataAreasSJC}
+					setGeoFilter={setGeoFilter}
+					getGeoFilter={getGeoFilter}
+					checked={showDefaultPolygons}
+				/>
 			</LayersControl>
-			< DrawMap />
+			<DrawMap />
 		</MapContainer>
 	);
 }
