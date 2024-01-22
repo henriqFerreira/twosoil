@@ -75,12 +75,6 @@ export default function Sidebar(): JSX.Element {
 					href={"/"}
 					collapsed={collapsed}
 				/>
-				<SidebarItem
-					label="Clima"
-					icon="umbrella"
-					href={"/weather"}
-					collapsed={collapsed}
-				/>
 			</nav>
 		</aside>
 	);
